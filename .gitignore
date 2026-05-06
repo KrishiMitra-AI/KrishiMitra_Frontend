@@ -1,0 +1,17 @@
+# Frontend secrets
+krishimitra-frontend/.env.local
+krishimitra-frontend/.env
+
+# Backend secrets
+krishimitra-backend/src/main/resources/application.properties
+krishimitra-backend/src/main/resources/application-prod.properties
+
+# Build artifacts
+krishimitra-frontend/node_modules/
+krishimitra-frontend/dist/
+krishimitra-backend/target/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
