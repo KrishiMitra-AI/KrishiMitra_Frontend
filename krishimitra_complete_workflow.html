@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishiMitra - Complete Project Workflow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+<style>
+  :root {
+    --primary-blue: #2563eb;
+    --primary-blue-light: #dbeafe;
+    --primary-blue-dark: #1d4ed8;
+    --success-green: #059669;
+    --success-green-light: #d1fae5;
+    --success-green-dark: #047857;
+    --warning-orange: #d97706;
+    --warning-orange-light: #fef3c7;
+    --warning-orange-dark: #b45309;
+    --accent-purple: #7c3aed;
+    --accent-purple-light: #ede9fe;
+    --accent-purple-dark: #6d28d9;
+    --danger-red: #dc2626;
+    --danger-red-light: #fee2e2;
+    --danger-red-dark: #b91c1c;
+
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+    color: var(--gray-800);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  h2.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header p {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 0.75rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tab {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--gray-200);
+    background: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--gray-700);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+  }
+
+  .tab:hover::before {
+    left: 100%;
+  }
+
+  .tab:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-300);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .tab.active {
+    background: var(--primary-blue);
+    border-color: var(--primary-blue);
+    color: white;
+    box-shadow: var(--shadow-md);
+    font-weight: 600;
+  }
+
+  .tab.active:hover {
+    background: var(--primary-blue-dark);
+  }
+
+  .panel {
+    display: none;
+    background: white;
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+  }
+
+  .panel.active {
+    display: block;
+  }
+
+  .panel-header {
+    padding: 2rem;
+    border-bottom: 1px solid var(--gray-200);
+    background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius-lg);
+    border-left: 4px solid;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .fe-title {
+    background: var(--primary-blue-light);
+    border-color: var(--primary-blue);
+    color: var(--primary-blue-dark);
+  }
+
+  .be-title {
+    background: var(--success-green-light);
+    border-color: var(--success-green);
+    color: var(--success-green-dark);
+  }
+
+  .db-title {
+    background: var(--warning-orange-light);
+    border-color: var(--warning-orange);
+    color: var(--warning-orange-dark);
+  }
+
+  .ai-title {
+    background: var(--accent-purple-light);
+    border-color: var(--accent-purple);
+    color: var(--accent-purple-dark);
+  }
+
+  .qa-title {
+    background: var(--danger-red-light);
+    border-color: var(--danger-red);
+    color: var(--danger-red-dark);
+  }
+
+  .panel-content {
+    padding: 2rem;
+  }
+
+  .intro-text {
+    font-size: 1rem;
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .tree-section {
+    margin-bottom: 2rem;
+  }
+
+  .tree-node {
+    margin: 0.5rem 0;
+  }
+
+  .node-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--gray-200);
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .node-row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-blue);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .node-row:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-300);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .node-row:hover::before {
+    opacity: 1;
+  }
+
+  .node-icon {
+    font-size: 1.125rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .node-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 0.25rem;
+  }
+
+  .node-desc {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  .children {
+    margin-left: 2rem;
+    margin-top: 0.75rem;
+    border-left: 2px solid var(--gray-200);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .children::before {
+    content: '';
+    position: absolute;
+    top: -0.75rem;
+    left: -2px;
+    width: 2px;
+    height: 0.75rem;
+    background: var(--gray-200);
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .badge-fe {
+    background: var(--primary-blue-light);
+    color: var(--primary-blue-dark);
+  }
+
+  .badge-be {
+    background: var(--success-green-light);
+    color: var(--success-green-dark);
+  }
+
+  .badge-db {
+    background: var(--warning-orange-light);
+    color: var(--warning-orange-dark);
+  }
+
+  .badge-ai {
+    background: var(--accent-purple-light);
+    color: var(--accent-purple-dark);
+  }
+
+  .badge-qa {
+    background: var(--danger-red-light);
+    color: var(--danger-red-dark);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .person-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+  }
+
+  .person-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .person-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+    background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+  }
+
+  .person-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .person-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 0.25rem;
+  }
+
+  .person-role {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+  }
+
+  .task-list {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .task-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .task-item:last-child {
+    border-bottom: none;
+  }
+
+  .task-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .task-text {
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .task-owner {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .collab-section {
+    margin-top: 2.5rem;
+  }
+
+  .collab-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.5rem;
+    background: var(--gray-50);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--gray-200);
+  }
+
+  .collab-content {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius-xl);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .collab-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--gray-50);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--gray-100);
+  }
+
+  .collab-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .collab-who {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    min-width: 80px;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius-sm);
+  }
+
+  .collab-task {
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    flex: 1;
+    line-height: 1.5;
+  }
+
+  .arrow-right {
+    color: var(--gray-400);
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .timeline-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .timeline-row:last-child {
+    border-bottom: none;
+  }
+
+  .hour-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.375rem 0.875rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+    min-width: 72px;
+    text-align: center;
+    background: var(--gray-100);
+    color: var(--gray-700);
+  }
+
+  .timeline-task {
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    flex: 1;
+    line-height: 1.5;
+  }
+
+  .timeline-owner {
+    font-size: 0.75rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    color: var(--gray-600);
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem 0.5rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+    }
+
+    .tab-bar {
+      padding: 0.5rem;
+      gap: 0.25rem;
+    }
+
+    .tab {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    .panel-content {
+      padding: 1rem;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .person-card {
+      margin: 0 0.5rem;
+    }
+  }
+</style>
+
+<h2 class="sr-only">KrishiMitra complete project workflow — frontend, backend, database, AI, and team plan</h2>
+
+<div class="container">
+  <div class="header">
+    <h1>KrishiMitra</h1>
+    <p>Complete Project Workflow — Frontend, Backend, Database, AI & APIs, Team Plan</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="showTab('frontend')"><i class="ti ti-layout" aria-hidden="true"></i>
+      Frontend</button>
+    <button class="tab" onclick="showTab('backend')"><i class="ti ti-server" aria-hidden="true"></i> Backend</button>
+    <button class="tab" onclick="showTab('database')"><i class="ti ti-database" aria-hidden="true"></i> Database</button>
+    <button class="tab" onclick="showTab('ai')"><i class="ti ti-brain" aria-hidden="true"></i> AI & APIs</button>
+    <button class="tab" onclick="showTab('team')"><i class="ti ti-users" aria-hidden="true"></i> Team Plan</button>
+  </div>
+
+  <div id="panel-frontend" class="panel active">
+    <div class="panel-header">
+      <div class="section-title fe-title"><i class="ti ti-layout" aria-hidden="true"></i> Frontend — everything the user
+        sees and touches</div>
+      <p class="intro-text">Frontend = the app screen. The farmer opens your app on their phone — whatever they SEE is frontend. It is built with <strong>React + Vite + Tailwind CSS</strong>.</p>
+    </div>
+
+    <div class="panel-content">
+
+  <div class="tree-section">
+    <div class="tree-node">
+      <div class="node-row" onclick="toggle('fe-1')">
+        <span class="node-icon">📁</span>
+        <div>
+          <div class="node-label">React App (the whole frontend project)</div>
+          <div class="node-desc">One folder. All 6 feature screens live here.</div>
+        </div>
+      </div>
+      <div class="children" id="fe-1">
+
+        <div class="tree-node">
+          <div class="node-row" onclick="toggle('fe-setup')">
+            <span class="node-icon">⚙️</span>
+            <div>
+              <div class="node-label">Setup & Tools</div>
+              <div class="node-desc">How to create the project, what you need installed</div>
+            </div>
+          </div>
+          <div class="children" id="fe-setup">
+            <div class="node-row"><span class="node-icon">💡</span>
+              <div>
+                <div class="node-label">Vite</div>
+                <div class="node-desc">Like a "fast engine" that runs React. Command:
+                  <code>npm create vite@latest</code>. Every time you save a file, the browser refreshes instantly.
+                </div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">💡</span>
+              <div>
+                <div class="node-label">Tailwind CSS</div>
+                <div class="node-desc">Styling using class names directly in your HTML. Instead of writing CSS files,
+                  you write <code>className="text-green-600 font-bold"</code> right in the component.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">💡</span>
+              <div>
+                <div class="node-label">React Router</div>
+                <div class="node-desc">Handles navigation — when farmer taps "Price Forecast", React Router switches the
+                  screen without reloading the whole page. Install: <code>npm install react-router-dom</code></div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">💡</span>
+              <div>
+                <div class="node-label">Recharts</div>
+                <div class="node-desc">A ready-made chart library. You just give it data, it draws a line graph.
+                  Install: <code>npm install recharts</code>. Used only on Price Forecast screen.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tree-node">
+          <div class="node-row" onclick="toggle('fe-screens')">
+            <span class="node-icon">📱</span>
+            <div>
+              <div class="node-label">6 Screens to Build</div>
+              <div class="node-desc">Each screen = one .jsx file = one React component</div>
+            </div>
+          </div>
+          <div class="children" id="fe-screens">
+            <div class="node-row"><span class="node-icon">🌿</span>
+              <div>
+                <div class="node-label">Disease Scanner</div>
+                <div class="node-desc">Camera/upload button → image preview box → result card showing disease name,
+                  severity bar (green/yellow/red), 3 treatment steps in Hindi. Speaker button reads result aloud.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📈</span>
+              <div>
+                <div class="node-label">Price Forecast</div>
+                <div class="node-desc">Two dropdowns (crop + state) → big price number → Recharts line chart (7 days) →
+                  recommendation card ("sell now" / "wait"). Voice button reads advice.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🤝</span>
+              <div>
+                <div class="node-label">Mandi Swipe</div>
+                <div class="node-desc">Farmer: form to list crop (photo + qty + price + GPS). Buyer: swipe cards
+                  left/right (like Tinder). Match screen with buyer name + phone.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🌦️</span>
+              <div>
+                <div class="node-label">Weather Alert</div>
+                <div class="node-desc">Home screen cards. Color coded: red = urgent, yellow = caution, green = good.
+                  Cards like "Kal baarish hogi — pesticide mat chidko".</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🌾</span>
+              <div>
+                <div class="node-label">Crop Advisor</div>
+                <div class="node-desc">4 inputs (soil, water, budget, location) → 3 crop cards ranked by expected
+                  profit. Each card has crop name, income estimate, sowing date, water need.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">💬</span>
+              <div>
+                <div class="node-label">KisanBot Chat</div>
+                <div class="node-desc">Floating button (visible on all screens). WhatsApp-style chat. Type or tap mic →
+                  speech to text → AI reply appears → voice reads it aloud.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tree-node">
+          <div class="node-row" onclick="toggle('fe-connect')">
+            <span class="node-icon">🔗</span>
+            <div>
+              <div class="node-label">How Frontend Connects to Backend</div>
+              <div class="node-desc">Frontend talks to Java backend using fetch() — like sending a letter and waiting
+                for a reply</div>
+            </div>
+          </div>
+          <div class="children" id="fe-connect">
+            <div class="node-row"><span class="node-icon">📡</span>
+              <div>
+                <div class="node-label">API calls using fetch()</div>
+                <div class="node-desc">Example: farmer uploads photo → React calls
+                  <code>fetch("https://your-backend.render.com/api/disease/scan", method: POST, body: photo)</code> →
+                  Java processes → React gets back JSON result → shows it on screen.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🔑</span>
+              <div>
+                <div class="node-label">JWT Token (login)</div>
+                <div class="node-desc">After login, backend gives a "token" (a long secret code). Frontend saves it in
+                  memory and sends it with every request so backend knows who is talking.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">⚡</span>
+              <div>
+                <div class="node-label">Supabase Realtime (Mandi Swipe)</div>
+                <div class="node-desc">Frontend listens live to Supabase. When a buyer swipes right, database updates
+                  instantly → React shows "Ek khareedaar mila!" notification without refreshing page.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🌐</span>
+              <div>
+                <div class="node-label">Web Speech API (voice)</div>
+                <div class="node-desc">FREE, built into Chrome/Android browser. Mic button → browser converts Hindi
+                  speech to text (no API key needed). Also reads text aloud using <code>speechSynthesis.speak()</code>.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tree-node">
+          <div class="node-row" onclick="toggle('fe-test')">
+            <span class="node-icon">🧪</span>
+            <div>
+              <div class="node-label">How to Test Frontend</div>
+              <div class="node-desc">5 ways to check if your UI is working</div>
+            </div>
+          </div>
+          <div class="children" id="fe-test">
+            <div class="node-row"><span class="node-icon">🖥️</span>
+              <div>
+                <div class="node-label">Browser preview</div>
+                <div class="node-desc">Run <code>npm run dev</code>. Open localhost:5173. You see the live app. Every
+                  file save = instant refresh.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📱</span>
+              <div>
+                <div class="node-label">Mobile test (Chrome DevTools)</div>
+                <div class="node-desc">F12 → top bar toggle device icon → pick "iPhone 12". Checks if screens look right
+                  on small screen.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🔌</span>
+              <div>
+                <div class="node-label">Test with mock data first</div>
+                <div class="node-desc">Before backend is ready, hardcode fake JSON in frontend. Example: paste a fake
+                  "scan result" object to check if the disease card UI looks right.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📡</span>
+              <div>
+                <div class="node-label">Connect to real backend</div>
+                <div class="node-desc">Once P3 shares the Render.com URL, replace your fake data with real fetch()
+                  calls. Test each feature end-to-end.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🚀</span>
+              <div>
+                <div class="node-label">Deploy to Vercel</div>
+                <div class="node-desc"><code>npm install -g vercel</code> → <code>vercel</code> → done. You get a live
+                  URL like krishimitra.vercel.app. Farmers can open it on phone.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div id="panel-backend" class="panel">
+  <div class="panel-header">
+    <div class="section-title be-title"><i class="ti ti-server" aria-hidden="true"></i> Backend — the brain behind the app
+    </div>
+    <p class="intro-text">Backend = the server. When the farmer sends a photo, the frontend can't talk to Gemini AI directly (that would expose the API key). So frontend sends the photo to Java → Java calls Gemini → sends result back. Built with <strong>Java 17 + Spring Boot</strong>.</p>
+  </div>
+
+  <div class="panel-content">
+
+  <div class="tree-section">
+    <div class="tree-node">
+      <div class="node-row" onclick="toggle('be-1')">
+        <span class="node-icon">📁</span>
+        <div>
+          <div class="node-label">Spring Boot Project (the whole backend)</div>
+          <div class="node-desc">One Java project. All routes, logic, database calls live here.</div>
+        </div>
+      </div>
+      <div class="children" id="be-1">
+
+        <div class="tree-node">
+          <div class="node-row" onclick="toggle('be-setup')">
+            <span class="node-icon">⚙️</span>
+            <div>
+              <div class="node-label">Setup & Project Structure</div>
+              <div class="node-desc">How to create the project, what folders mean what</div>
+            </div>
+          </div>
+          <div class="children" id="be-setup">
+            <div class="node-row"><span class="node-icon">💡</span>
+              <div>
+                <div class="node-label">start.spring.io</div>
+                <div class="node-desc">Go to this website → select Java 17, Spring Boot 3, add dependencies → click
+                  Generate → download a ready-made project ZIP. Extract and open in IntelliJ or VS Code.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📂</span>
+              <div>
+                <div class="node-label">controller/ folder</div>
+                <div class="node-desc">API route handlers. Example: DiseaseController handles POST /api/disease/scan.
+                  This is the "door" — requests come in here.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📂</span>
+              <div>
+                <div class="node-label">service/ folder</div>
+                <div class="node-desc">Business logic. Example: DiseaseService.java calls Gemini API, reads the
+                  response, formats it. This is the "brain" — actual work happens here.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📂</span>
+              <div>
+                <div class="node-label">repository/ folder</div>
+                <div class="node-desc">Database queries. Example: DiseaseRepository.save(result) saves a scan to
+                  Supabase. This is the "memory" — talks to database.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📂</span>
+              <div>
+                <div class="node-label">model/ folder</div>
+                <div class="node-desc">Data shapes. Example: ScanResult.java has fields: disease_name, severity,
+                  treatment. Like a template for what data looks like.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🔑</span>
+              <div>
+                <div class="node-label">application.properties</div>
+                <div class="node-desc">Where you store secret keys: Gemini API key, Supabase URL + password,
+                  OpenWeatherMap key. NEVER commit this file to GitHub. Add it to .gitignore!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tree-node">
+          <div class="node-row" onclick="toggle('be-routes')">
+            <span class="node-icon">🛣️</span>
+            <div>
+              <div class="node-label">14 API Routes (endpoints)</div>
+              <div class="node-desc">Frontend calls these URLs to get things done</div>
+            </div>
+          </div>
+          <div class="children" id="be-routes">
+            <div class="node-row"><span class="node-icon">🔐</span>
+              <div>
+                <div class="node-label">POST /api/auth/register + /api/auth/login</div>
+                <div class="node-desc">Farmer registers with phone number. Login returns a JWT token. All other
+                  endpoints check this token.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🌿</span>
+              <div>
+                <div class="node-label">POST /api/disease/scan</div>
+                <div class="node-desc">Receives photo + voice note → saves photo to Supabase Storage → calls Gemini
+                  Vision → saves result to DB → returns Hindi diagnosis JSON.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📈</span>
+              <div>
+                <div class="node-label">GET /api/prices/{crop} + /api/prices/forecast/{crop}</div>
+                <div class="node-desc">First fetches live price from Agmarknet. Second gets 30-day history from
+                  Supabase, sends to Gemini, returns 7-day forecast + sell advice.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🤝</span>
+              <div>
+                <div class="node-label">POST /api/listings + GET /api/listings + POST /api/match</div>
+                <div class="node-desc">Farmer creates listing. Buyer fetches nearby listings by GPS. Buyer swipes right
+                  → match saved → Supabase Realtime notifies farmer instantly.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🌦️</span>
+              <div>
+                <div class="node-label">GET /api/weather</div>
+                <div class="node-desc">Fetches 7-day weather from OpenWeatherMap → sends to Gemini → returns 3 farming
+                  action alerts in Hindi.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🌾</span>
+              <div>
+                <div class="node-label">POST /api/advisor</div>
+                <div class="node-desc">Receives soil+water+budget+location → Java also fetches local weather + current
+                  prices → sends all to Gemini → returns top 3 crop suggestions in Hindi.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">💬</span>
+              <div>
+                <div class="node-label">POST /api/kisanbot/chat</div>
+                <div class="node-desc">Receives question + full chat history → sends to Gemini with KisanBot system
+                  prompt → returns Hindi reply → saves to Supabase.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tree-node">
+          <div class="node-row" onclick="toggle('be-logic')">
+            <span class="node-icon">🧠</span>
+            <div>
+              <div class="node-label">The Core Logic Flow (how every request works)</div>
+              <div class="node-desc">Same 4-step pattern used for every feature</div>
+            </div>
+          </div>
+          <div class="children" id="be-logic">
+            <div class="node-row"><span class="node-icon">1️⃣</span>
+              <div>
+                <div class="node-label">Controller receives request</div>
+                <div class="node-desc">Frontend sends request to Java. Controller checks JWT token (is this a real
+                  logged-in user?). If valid, passes data to Service.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">2️⃣</span>
+              <div>
+                <div class="node-label">Service does the work</div>
+                <div class="node-desc">Calls Gemini API / Agmarknet / OpenWeatherMap. Parses the JSON response. Builds a
+                  clean result object.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">3️⃣</span>
+              <div>
+                <div class="node-label">Repository saves to database</div>
+                <div class="node-desc">Saves the result to Supabase (scan history, chat log, price cache, etc.).</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">4️⃣</span>
+              <div>
+                <div class="node-label">Controller returns JSON</div>
+                <div class="node-desc">Returns clean JSON to React frontend. React reads it and shows the UI (disease
+                  card, price chart, chat reply, etc.).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tree-node">
+          <div class="node-row" onclick="toggle('be-test')">
+            <span class="node-icon">🧪</span>
+            <div>
+              <div class="node-label">How to Test Backend</div>
+              <div class="node-desc">4 ways to check if your Java APIs work</div>
+            </div>
+          </div>
+          <div class="children" id="be-test">
+            <div class="node-row"><span class="node-icon">🟢</span>
+              <div>
+                <div class="node-label">Run locally first</div>
+                <div class="node-desc">Run <code>mvn spring-boot:run</code>. Server starts on port 8080. Test with
+                  browser or Postman at <code>http://localhost:8080/api/...</code></div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">📬</span>
+              <div>
+                <div class="node-label">Postman</div>
+                <div class="node-desc">A free app to send fake requests to your API. You can test POST /api/disease/scan
+                  by attaching a photo, setting headers, and seeing the JSON response — without needing the frontend to
+                  be ready.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🌍</span>
+              <div>
+                <div class="node-label">CORS config (important!)</div>
+                <div class="node-desc">By default, Java will BLOCK requests from your React app (different URL). You
+                  must add CORS config in Java to allow requests from your Vercel domain. Without this, frontend can't
+                  talk to backend.</div>
+              </div>
+            </div>
+            <div class="node-row"><span class="node-icon">🚀</span>
+              <div>
+                <div class="node-label">Deploy to Render.com</div>
+                <div class="node-desc">Push code to GitHub → connect repo to Render → it builds automatically. You get a
+                  public URL like <code>https://krishimitra-api.onrender.com</code>. Share this with P1 (frontend) to
+                  replace localhost.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div id="panel-database" class="panel">
+  <div class="panel-header">
+    <div class="section-title db-title"><i class="ti ti-database" aria-hidden="true"></i> Database — the memory of your app</div>
+    <p class="intro-text">Database = where everything is saved. When farmer registers, their info is saved here. When they scan a disease, the result is saved here. You're using <strong>Supabase (PostgreSQL)</strong> — it's like a smart Google Sheet in the cloud. Free, and it also gives you file storage and live updates.</p>
+  </div>
+
+  <div class="panel-content">
+
+  <div class="tree-node" style="margin-bottom:8px">
+    <div class="node-row" onclick="toggle('db-1')">
+      <span class="node-icon">🗄️</span>
+      <div>
+        <div class="node-label">Supabase — 3 things in one</div>
+        <div class="node-desc">PostgreSQL database + file storage + realtime updates. All free.</div>
+      </div>
+    </div>
+    <div class="children" id="db-1">
+
+      <div class="tree-node">
+        <div class="node-row" onclick="toggle('db-tables')">
+          <span class="node-icon">📊</span>
+          <div>
+            <div class="node-label">5 Tables (like 5 Excel sheets)</div>
+            <div class="node-desc">Each table stores one type of data</div>
+          </div>
+        </div>
+        <div class="children" id="db-tables">
+          <div class="node-row"><span class="node-icon">👤</span>
+            <div>
+              <div class="node-label">users table</div>
+              <div class="node-desc">Stores: id, phone number, name, role (farmer/buyer), village name, GPS lat/lng,
+                when they registered. Every user = 1 row.</div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">🌾</span>
+            <div>
+              <div class="node-label">crop_listings table</div>
+              <div class="node-desc">Stores: which farmer listed it, crop name, quantity (kg), minimum price, photo URL,
+                GPS location, status (available/matched/sold). Used by Mandi Swipe feature.</div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">🤝</span>
+            <div>
+              <div class="node-label">matches table</div>
+              <div class="node-desc">Stores: which listing was matched, which buyer swiped right, which farmer owns it,
+                status (pending/accepted/completed), when it happened.</div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">🌿</span>
+            <div>
+              <div class="node-label">disease_scans table</div>
+              <div class="node-desc">Stores: which farmer did the scan, photo URL, disease name found by Gemini,
+                severity (low/medium/high), full treatment text in Hindi, when it was scanned.</div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">💬</span>
+            <div>
+              <div class="node-label">chat_history table</div>
+              <div class="node-desc">Stores: which farmer's chat, whether it's a user message or KisanBot reply, full
+                message text in Hindi, timestamp. Needed so KisanBot remembers previous messages.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tree-node">
+        <div class="node-row" onclick="toggle('db-storage')">
+          <span class="node-icon">🖼️</span>
+          <div>
+            <div class="node-label">Supabase Storage (file storage)</div>
+            <div class="node-desc">Stores photos — crop disease photos and Mandi Swipe listing photos</div>
+          </div>
+        </div>
+        <div class="children" id="db-storage">
+          <div class="node-row"><span class="node-icon">📸</span>
+            <div>
+              <div class="node-label">How it works</div>
+              <div class="node-desc">Java uploads the photo to Supabase Storage → gets back a URL → saves that URL in
+                the database table. React displays the photo using that URL. Like Google Drive but for your app.</div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">🪣</span>
+            <div>
+              <div class="node-label">Buckets to create</div>
+              <div class="node-desc">Create two buckets in Supabase dashboard: "disease-photos" and "crop-listings". Set
+                them to public so photos are viewable without login.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tree-node">
+        <div class="node-row" onclick="toggle('db-realtime')">
+          <span class="node-icon">⚡</span>
+          <div>
+            <div class="node-label">Supabase Realtime (live updates)</div>
+            <div class="node-desc">Used for Mandi Swipe — farmer gets notified instantly when buyer matches</div>
+          </div>
+        </div>
+        <div class="children" id="db-realtime">
+          <div class="node-row"><span class="node-icon">🔔</span>
+            <div>
+              <div class="node-label">How it works</div>
+              <div class="node-desc">React "subscribes" to the matches table. When a new row is inserted (buyer swiped
+                right), Supabase sends a live notification to the farmer's browser. No page refresh needed. Go to
+                Supabase → Table Editor → matches → enable Realtime toggle.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tree-node">
+        <div class="node-row" onclick="toggle('db-connect')">
+          <span class="node-icon">🔗</span>
+          <div>
+            <div class="node-label">How to connect Java to Supabase</div>
+            <div class="node-desc">3 simple steps</div>
+          </div>
+        </div>
+        <div class="children" id="db-connect">
+          <div class="node-row"><span class="node-icon">1️⃣</span>
+            <div>
+              <div class="node-label">Get connection string from Supabase</div>
+              <div class="node-desc">Go to Supabase dashboard → Settings → Database → copy the "Connection string". It
+                looks like <code>jdbc:postgresql://db.xxx.supabase.co:5432/postgres</code></div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">2️⃣</span>
+            <div>
+              <div class="node-label">Add to application.properties</div>
+              <div class="node-desc">Paste the URL + username + password into your Spring Boot application.properties
+                file. Java will automatically connect on startup.</div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">3️⃣</span>
+            <div>
+              <div class="node-label">Create tables in Supabase SQL Editor</div>
+              <div class="node-desc">Go to Supabase → SQL Editor → run CREATE TABLE commands for all 5 tables. The
+                technical plan has the exact column list for each table.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tree-node">
+        <div class="node-row" onclick="toggle('db-test')">
+          <span class="node-icon">🧪</span>
+          <div>
+            <div class="node-label">How to test Database</div>
+            <div class="node-desc">3 ways to check everything is saved correctly</div>
+          </div>
+        </div>
+        <div class="children" id="db-test">
+          <div class="node-row"><span class="node-icon">🔍</span>
+            <div>
+              <div class="node-label">Supabase Table Editor (visual)</div>
+              <div class="node-desc">Go to Supabase dashboard → Table Editor. You can see all rows in all tables. After
+                a test scan, check if a row appeared in disease_scans. Like looking at an Excel sheet.</div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">💻</span>
+            <div>
+              <div class="node-label">SQL Editor</div>
+              <div class="node-desc">Run SQL queries directly: <code>SELECT * FROM users;</code> — shows all registered
+                users. <code>SELECT * FROM disease_scans ORDER BY scanned_at DESC;</code> — shows latest scans.</div>
+            </div>
+          </div>
+          <div class="node-row"><span class="node-icon">📬</span>
+            <div>
+              <div class="node-label">Via Postman</div>
+              <div class="node-desc">Call your Java API endpoints from Postman (e.g. POST /api/auth/register). Then
+                check Supabase Table Editor to confirm a new user row was created.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</div>
+
+<div id="panel-ai" class="panel">
+  <div class="panel-header">
+    <div class="section-title ai-title"><i class="ti ti-brain" aria-hidden="true"></i> AI & External APIs — the
+      intelligence layer</div>
+    <p class="intro-text">These are services your Java backend calls. You don't build them — you just call them like making a phone call and getting an answer back.</p>
+  </div>
+
+  <div class="panel-content">
+
+  <div class="tree-node" style="margin-bottom:8px">
+    <div class="node-row" onclick="toggle('ai-1')">
+      <span class="node-icon">🔌</span>
+      <div>
+        <div class="node-label">4 External APIs your app uses</div>
+      </div>
+    </div>
+    <div class="children" id="ai-1">
+      <div class="node-row"><span class="node-icon">🤖</span>
+        <div>
+          <div class="node-label">Gemini 1.5 Flash API (Google AI)</div>
+          <div class="node-desc">The main AI brain. Powers: disease scanner (sends photo), price forecast (sends price
+            history), weather advice (sends weather data), crop advisor (sends soil/water/budget), KisanBot (sends Hindi
+            questions). Get free API key from aistudio.google.com. Java sends text/photo → gets Hindi text back.</div>
+        </div>
+      </div>
+      <div class="node-row"><span class="node-icon">📊</span>
+        <div>
+          <div class="node-label">Agmarknet API (Indian Government)</div>
+          <div class="node-desc">Official mandi prices across India. Java calls this with crop name + state → gets back
+            today's real market price in ₹/quintal. Free. Used in Price Forecast + Crop Advisor.</div>
+        </div>
+      </div>
+      <div class="node-row"><span class="node-icon">🌤️</span>
+        <div>
+          <div class="node-label">OpenWeatherMap API</div>
+          <div class="node-desc">7-day weather by GPS location. 1 million free calls/month. Java calls with farmer's
+            lat/lng → gets 7-day hourly forecast → sends to Gemini → Gemini converts to farming advice in Hindi.</div>
+        </div>
+      </div>
+      <div class="node-row"><span class="node-icon">🎤</span>
+        <div>
+          <div class="node-label">Web Speech API (in browser, free)</div>
+          <div class="node-desc">NOT an API you call from Java — this lives in the React frontend. Built into
+            Chrome/Android browser. No key needed. Mic button → farmer speaks Hindi → browser converts to text → sent to
+            Java. Also: Java reply text → browser speaks it aloud.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div id="panel-team" class="panel">
+  <div class="panel-header">
+    <div class="section-title qa-title"><i class="ti ti-users" aria-hidden="true"></i> 4-Person Team — who does what</div>
+    <p class="intro-text">Main roles are fixed. But one person can't do it all alone — here's exactly where each person contributes to others' work.</p>
+  </div>
+
+  <div class="panel-content">
+
+  <div class="team-grid">
+
+    <div class="person-card">
+      <div class="person-header">
+        <div class="person-avatar" style="background:#E6F1FB;color:#185FA5">P1</div>
+        <div class="person-name">Person 1 — Frontend Lead</div>
+        <div class="person-role">React + Vite + Tailwind + Vercel deploy</div>
+      </div>
+      <div class="task-list">
+        <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Main tasks (Hour
+          1–24)</div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text">Setup React + Vite + Tailwind. Create 6 page files. Setup React Router. Deploy empty
+              app to Vercel.</div>
+            <div class="task-owner" style="color:#185FA5">Hr 1–2</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text">Build Disease Scanner UI — camera button, image preview, severity bar, treatment
+              steps, voice mic.</div>
+            <div class="task-owner" style="color:#185FA5">Hr 3–6</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text">Build Price Forecast UI — dropdowns, Recharts line chart, recommendation card.</div>
+            <div class="task-owner" style="color:#185FA5">Hr 7–10</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text">Build Mandi Swipe UI — listing form, swipe cards, match notification screen.</div>
+            <div class="task-owner" style="color:#185FA5">Hr 11–14</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text">Weather alert cards. Crop Advisor form + 3 result cards. KisanBot chat interface.
+            </div>
+            <div class="task-owner" style="color:#185FA5">Hr 15–20</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text">Hindi labels on all screens. Mobile responsive fixes. Home screen with impact stats.
+            </div>
+            <div class="task-owner" style="color:#185FA5">Hr 21–24</div>
+          </div>
+        </div>
+      </div>
+      <div class="task-list" style="border-top:0.5px solid var(--color-border-tertiary)">
+        <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Where P1 needs
+          help from others →</div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">From P3:</span> Render backend URL, CORS config so
+              fetch() calls work from Vercel domain.</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">From P2:</span> Exact JSON structure Gemini returns —
+              so P1 knows which fields to display in the UI (disease_name, severity, treatment_steps etc.).</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">From P4:</span> Bug reports from testing — P4 finds
+              broken screens, P1 fixes them.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="person-card">
+      <div class="person-header">
+        <div class="person-avatar" style="background:#EEEDFE;color:#534AB7">P2</div>
+        <div class="person-name">Person 2 — AI & External APIs</div>
+        <div class="person-role">Gemini, Agmarknet, OpenWeatherMap, Java Service layer</div>
+      </div>
+      <div class="task-list">
+        <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Main tasks (Hour
+          1–24)</div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text">Get Gemini API key from AI Studio. Test disease scan call in Postman. Get Agmarknet
+              access.</div>
+            <div class="task-owner" style="color:#534AB7">Hr 1–2</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text">Write DiseaseService.java — sends photo+voice to Gemini Vision, parses Hindi JSON
+              response.</div>
+            <div class="task-owner" style="color:#534AB7">Hr 3–6</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text">Write PriceService.java and PriceForecastService.java — Agmarknet + Gemini 7-day
+              prediction.</div>
+            <div class="task-owner" style="color:#534AB7">Hr 7–13</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text">Write WeatherService.java and CropAdvisorService.java — OpenWeatherMap + Gemini
+              farming advice.</div>
+            <div class="task-owner" style="color:#534AB7">Hr 14–19</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text">Write KisanBotService.java — chat history management, Gemini system prompt in Hindi.
+            </div>
+            <div class="task-owner" style="color:#534AB7">Hr 20–22</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text">End-to-end API testing. Handle errors: timeout, bad JSON, Gemini quota exceeded,
+              fallback to cached data.</div>
+            <div class="task-owner" style="color:#534AB7">Hr 23–24</div>
+          </div>
+        </div>
+      </div>
+      <div class="task-list" style="border-top:0.5px solid var(--color-border-tertiary)">
+        <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Where P2
+          contributes to others →</div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">To P1:</span> Share exact JSON response shapes so
+              frontend knows what fields to display.</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">To P3:</span> Provide Service classes (.java files)
+              that P3's Controllers will call.</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">To P4:</span> Explain what Gemini does in simple words
+              for pitch deck. Help rehearse technical judge questions.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="person-card">
+      <div class="person-header">
+        <div class="person-avatar" style="background:#E1F5EE;color:#0F6E56">P3</div>
+        <div class="person-name">Person 3 — Backend & Database</div>
+        <div class="person-role">Spring Boot setup, REST controllers, Supabase, JWT auth, Render deploy</div>
+      </div>
+      <div class="task-list">
+        <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Main tasks (Hour
+          1–24)</div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text">Create Spring Boot project. Add all pom.xml dependencies. Create Supabase project.
+              Connect Spring Boot to Supabase PostgreSQL.</div>
+            <div class="task-owner" style="color:#0F6E56">Hr 1–2</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text">Create all 5 Supabase tables (users, crop_listings, matches, disease_scans,
+              chat_history). Add indexes.</div>
+            <div class="task-owner" style="color:#0F6E56">Hr 3–5</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text">Build AuthController + JwtService — register with phone, login, return JWT token,
+              validate token on all routes.</div>
+            <div class="task-owner" style="color:#0F6E56">Hr 6–8</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text">Build DiseaseController + PriceController — wire to P2's service classes.</div>
+            <div class="task-owner" style="color:#0F6E56">Hr 9–12</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text">Build MandiSwipeController (listings + matches). Enable Supabase Realtime on matches
+              table.</div>
+            <div class="task-owner" style="color:#0F6E56">Hr 13–16</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text">Build WeatherController, CropAdvisorController, KisanBotController. Configure CORS.
+              Deploy to Render.</div>
+            <div class="task-owner" style="color:#0F6E56">Hr 17–21</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text">Test every endpoint in Postman. Fix DB issues. Set Supabase security rules. Share
+              final Render URL with P1.</div>
+            <div class="task-owner" style="color:#0F6E56">Hr 22–24</div>
+          </div>
+        </div>
+      </div>
+      <div class="task-list" style="border-top:0.5px solid var(--color-border-tertiary)">
+        <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Where P3
+          contributes to others →</div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">To P1:</span> Share Render URL + add P1's Vercel domain
+              to CORS whitelist (must happen by Hr 12).</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">To P2:</span> Provide working DB repository classes and
+              database connection so P2's Services can save results.</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">To P4:</span> Explain Supabase in simple words for
+              pitch deck. Confirm all 15 submission checklist items are done.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="person-card">
+      <div class="person-header">
+        <div class="person-avatar" style="background:#FCEBEB;color:#A32D2D">P4</div>
+        <div class="person-name">Person 4 — Pitch & QA</div>
+        <div class="person-role">Hackathon pitch deck, demo script, full app testing, submission</div>
+      </div>
+      <div class="task-list">
+        <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Main tasks (Hour
+          1–24)</div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text">Build pitch deck: Problem → Solution → 6 Features → Tech Stack → Business Model →
+              Impact → Team.</div>
+            <div class="task-owner" style="color:#A32D2D">Hr 1–7</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text">Test Disease Scanner with 10 real crop disease photos. Report all bugs to P1/P2.
+            </div>
+            <div class="task-owner" style="color:#A32D2D">Hr 8–12</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text">Test Price Forecast for 5 crops + states. Test Mandi Swipe end-to-end with 2 browser
+              tabs.</div>
+            <div class="task-owner" style="color:#A32D2D">Hr 13–16</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text">Write demo script: "Raju the farmer's day" — 3-minute story showing all 6 features
+              naturally.</div>
+            <div class="task-owner" style="color:#A32D2D">Hr 17–18</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text">Write 15 likely judge questions + answers. Share with team for rehearsal.</div>
+            <div class="task-owner" style="color:#A32D2D">Hr 19–20</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#A32D2D"></div>
+          <div>
+            <div class="task-text">Record 2-minute demo video (MP4). Final submission checklist. Verify Vercel URL on
+              real phone. Team rehearsal.</div>
+            <div class="task-owner" style="color:#A32D2D">Hr 21–24</div>
+          </div>
+        </div>
+      </div>
+      <div class="task-list" style="border-top:0.5px solid var(--color-border-tertiary)">
+        <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">P4 is the flex
+          resource — contributes everywhere →</div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#185FA5"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">Help P1:</span> After pitch deck is done (Hr 7+), help
+              P1 add Hindi labels, test mobile UI, find broken screens.</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#534AB7"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">Help P2:</span> Find Gemini prompt issues — test with
+              edge cases like blurry photos, non-crop images, unusual Hindi questions.</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <div class="task-dot" style="background:#0F6E56"></div>
+          <div>
+            <div class="task-text"><span style="font-weight:500">Help P3:</span> If backend falls behind, P4 can help
+              test Postman calls, verify DB rows, check deployment.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="collab-section">
+    <div class="collab-title">Critical handoffs between team members (must happen on time)</div>
+    <div class="collab-content">
+      <div class="collab-row"><span class="collab-who" style="color:#0F6E56">P3 → P1</span><span
+          class="arrow-right">→</span><span class="collab-task">By <strong>Hour 12</strong>: Share Render.com backend
+          URL + add Vercel domain to CORS. Without this, P1 cannot connect frontend to backend.</span></div>
+      <div class="collab-row"><span class="collab-who" style="color:#534AB7">P2 → P3</span><span
+          class="arrow-right">→</span><span class="collab-task">By <strong>Hour 8</strong>: Share the
+          DiseaseService.java file structure so P3 can wire the Controller to it.</span></div>
+      <div class="collab-row"><span class="collab-who" style="color:#534AB7">P2 → P1</span><span
+          class="arrow-right">→</span><span class="collab-task">By <strong>Hour 8</strong>: Share exact JSON response
+          format so P1 knows what fields to read in the UI (e.g. <code>result.disease_name</code>,
+          <code>result.severity</code>).</span></div>
+      <div class="collab-row"><span class="collab-who" style="color:#A32D2D">P4 → All</span><span
+          class="arrow-right">→</span><span class="collab-task">Every 3 hours: Share bug list from testing so P1/P2/P3
+          can fix issues before last 2 hours of panic time.</span></div>
+      <div class="collab-row"><span class="collab-who" style="color:#185FA5">P1 → P4</span><span
+          class="arrow-right">→</span><span class="collab-task">By <strong>Hour 20</strong>: Share final Vercel URL so
+          P4 can record the demo video on a real phone.</span></div>
+    </div>
+  </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+  function toggle(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  }
+  document.querySelectorAll('.children').forEach(c => {
+    if (c.parentElement.classList.contains('tree-section')) return;
+    c.style.display = 'none';
+  });
+  document.querySelectorAll('#fe-1, #be-1, #db-1, #ai-1').forEach(c => c.style.display = 'block');
+</script>
+</body>
+</html>
